@@ -13,7 +13,7 @@ const Home = () => {
        <FeaturedProducts type='trending'/>
        <Contact />
     </div>
-  )
+  ) 
 }
 
-export default Home
+export default Home 
