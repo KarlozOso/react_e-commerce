@@ -26,7 +26,7 @@ const Cart = () => {
     ];
   return (
     <div className='cart'>
-    <h1>Products in Cat </h1>
+    <h1>Products in Cart </h1>
     {data?.map((item) => (
         <div className="item" key={item.id}>
         <img src={item.img} alt={item.title} />

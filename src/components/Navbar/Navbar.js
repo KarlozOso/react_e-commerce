@@ -57,7 +57,7 @@ const Navbar = () => {
         <FavoriteIcon /> 
         <div className='cartIcon' onClick={() =>setOpen(!open)}>
         <ShoppingCartIcon/>
-        <span>0</span>
+        <span>2</span>
         </div>
         </div>
         </div>
