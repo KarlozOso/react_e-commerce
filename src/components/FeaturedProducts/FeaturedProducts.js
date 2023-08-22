@@ -1,43 +1,24 @@
-import React from 'react';
-import "./FeaturedProducts.scss";
-import Card from "../../components/Card/Card";
+import React, { useEffect, useState } from 'react'
+import './FeaturedProducts.scss'
+import Card from '../../components/Card/Card'
+import axios from 'axios'
 
 const FeaturedProducts = ({ type }) => {
-  const data = [
-    {
-      id: 1,
-      img: 'https://images.pexels.com/photos/17833257/pexels-photo-17833257.jpeg?auto=compress&cs=tinysrtb&w=1600',
-      img2: 'https://images.pexels.com/photos/17830128/pexels-photo-17830128.jpeg?auto=compress&cs=tinysrtb&w=1600',
-      title: 'Long Sleeve Graphic T-shirt',
-      isNew:true,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 2,
-      img: 'https://images.pexels.com/photos/1381553/pexels-photo-1381553.jpeg?auto=compress&cs=tinysrtb&w=1600',
-      title: 'Coat',
-      isNew: false,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 3,
-      img: 'https://images.pexels.com/photos/1152994/pexels-photo-1152994.jpeg?auto=compress&cs=tinysrtb&w=1600',
-      title: 'Skirt',
-      isNew: false,
-      oldPrice: 19,
-      price: 12,
-    },
-    {
-      id: 4,
-      img: 'https://images.pexels.com/photos/1449667/pexels-photo-1449667.jpeg?auto=compress&cs=tinysrtb&w=1600',
-      title: 'Hat',
-      isNew: false,
-      oldPrice: 19,
-      price: 12,
-    },
-  ];
+  const [data, setData] = useState([]);
+
+useEffect(() =>{
+const fetchData =async () =>{
+  try{
+const res = await axios.get(process.env.REACT_APP_API_URL+`/products?population=*&[filters] [type][$eq]=${type}`,{
+  headers:{Authorization: `bearer $(process.env.REACT_APP_API_TOKEN)`,}
+});
+setData(res.data.data)
+  }catch(err){
+    console.log(err)
+  }
+};
+fetchData();
+}, []);
 
   return (
     <div className='featuredProducts'>
@@ -51,12 +32,12 @@ const FeaturedProducts = ({ type }) => {
         </p>
       </div>
       <div className='bottom'>
-        {data.map(item=> (
+        {data.map(item => (
           <Card item={item} key={item.id} />
         ))}
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FeaturedProducts;
+export default FeaturedProducts
